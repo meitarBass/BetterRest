@@ -29,8 +29,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             Form {
-                
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
                     Text("When do you want to wake up?")
                         .font(.headline)
 
@@ -39,18 +38,22 @@ struct ContentView: View {
                 }.padding(10)
 
                 
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
                     Text("Desired amount of sleep")
                         .font(.headline)
 
                     Stepper("\(sleepAmount.formatted()) hours", value: $sleepAmount, in: 4...12, step: 0.25)
                 }.padding(10)
 
-                VStack(alignment: .leading, spacing: 0) {
+                Section {
                     Text("Daily coffee intake")
                         .font(.headline)
 
-                    Stepper(coffeeAmount == 1 ? "1 cup" : "\(coffeeAmount) cups", value: $coffeeAmount, in: 1...20)
+                    Picker("Number of cups", selection: $coffeeAmount) {
+                        ForEach(1...20, id: \.self) {
+                            Text($0, format: .number).tag($0)
+                        }
+                    }
                 }.padding(10)
                 
                 
